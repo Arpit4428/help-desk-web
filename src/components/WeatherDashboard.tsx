@@ -11,32 +11,35 @@ import {
   Calendar
 } from "lucide-react";
 import weatherIcon from "@/assets/weather-icon.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const WeatherDashboard = () => {
+  const { t } = useLanguage();
+  
   const weatherData = {
     current: {
       temperature: 28,
       humidity: 72,
       windSpeed: 12,
-      condition: "Partly Cloudy",
+      condition: t('weather.partlyCloudy'),
       rainfall: 0
     },
     alerts: [
       {
         type: "warning",
-        message: "Heavy rainfall expected in next 48 hours",
-        impact: "Delay harvesting operations"
+        message: t('weather.heavyRainfallAlert'),
+        impact: t('weather.delayHarvesting')
       },
       {
         type: "info", 
-        message: "Optimal temperature for wheat growth",
-        impact: "Continue regular watering schedule"
+        message: t('weather.optimalTemp'),
+        impact: t('weather.continueWatering')
       }
     ],
     forecast: [
-      { day: "Today", temp: 28, condition: "Partly Cloudy", rain: 20 },
-      { day: "Tomorrow", temp: 25, condition: "Rainy", rain: 80 },
-      { day: "Day 3", temp: 30, condition: "Sunny", rain: 0 },
+      { day: t('weather.today'), temp: 28, condition: t('weather.partlyCloudy'), rain: 20 },
+      { day: t('weather.tomorrow'), temp: 25, condition: t('weather.rainy'), rain: 80 },
+      { day: t('weather.day3'), temp: 30, condition: t('weather.sunny'), rain: 0 },
     ]
   };
 
@@ -44,9 +47,9 @@ const WeatherDashboard = () => {
     <section className="py-16 bg-muted/30" id="weather">
       <div className="container px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Weather Intelligence</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('weather.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Real-time weather monitoring and forecasting to help you make informed farming decisions
+            {t('weather.subtitle')}
           </p>
         </div>
 
@@ -54,7 +57,7 @@ const WeatherDashboard = () => {
           {/* Current Weather */}
           <Card className="bg-gradient-to-br from-sky-blue/10 to-sky-blue/5 border-sky-blue/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Current Weather</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('weather.currentWeather')}</CardTitle>
               <Sun className="h-4 w-4 text-sky-blue" />
             </CardHeader>
             <CardContent>
@@ -71,14 +74,14 @@ const WeatherDashboard = () => {
           {/* Humidity */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Humidity</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('weather.humidity')}</CardTitle>
               <Droplets className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{weatherData.current.humidity}%</div>
               <p className="text-xs text-muted-foreground">
                 <TrendingUp className="inline w-3 h-3 mr-1" />
-                +2% from yesterday
+                +2% {t('weather.fromYesterday')}
               </p>
             </CardContent>
           </Card>
@@ -86,12 +89,12 @@ const WeatherDashboard = () => {
           {/* Wind Speed */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Wind Speed</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('weather.windSpeed')}</CardTitle>
               <Wind className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{weatherData.current.windSpeed} km/h</div>
-              <p className="text-xs text-muted-foreground">Light breeze</p>
+              <p className="text-xs text-muted-foreground">{t('weather.lightBreeze')}</p>
             </CardContent>
           </Card>
         </div>
@@ -102,14 +105,14 @@ const WeatherDashboard = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5 text-warning-orange" />
-                Weather Alerts
+                {t('weather.alerts')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {weatherData.alerts.map((alert, index) => (
                 <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
                   <Badge variant={alert.type === 'warning' ? 'destructive' : 'secondary'} className="mt-0.5">
-                    {alert.type === 'warning' ? 'Warning' : 'Info'}
+                    {alert.type === 'warning' ? t('weather.warning') : t('weather.info')}
                   </Badge>
                   <div className="flex-1">
                     <p className="text-sm font-medium">{alert.message}</p>
@@ -125,7 +128,7 @@ const WeatherDashboard = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-primary" />
-                3-Day Forecast
+                {t('weather.forecast')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">

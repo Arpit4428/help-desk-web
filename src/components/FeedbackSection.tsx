@@ -13,26 +13,28 @@ import {
   Globe
 } from "lucide-react";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const FeedbackSection = () => {
   const [feedback, setFeedback] = useState("");
   const [rating, setRating] = useState(0);
+  const { t } = useLanguage();
 
   const stats = [
     {
-      label: "Active Farmers",
+      label: t('feedback.activeFarmers'),
       value: "12,450+",
       icon: <Users className="w-5 h-5" />,
       color: "text-success-green"
     },
     {
-      label: "Crops Monitored",
+      label: t('feedback.cropsMonitored'),
       value: "8,200+",
       icon: <BarChart3 className="w-5 h-5" />,
       color: "text-primary"
     },
     {
-      label: "Languages Supported",
+      label: t('feedback.languagesSupported'),
       value: "12",
       icon: <Globe className="w-5 h-5" />,
       color: "text-sky-blue"
@@ -64,9 +66,9 @@ const FeedbackSection = () => {
     <section className="py-16 bg-muted/30">
       <div className="container px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Community & Feedback</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('feedback.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Join thousands of farmers using our platform and help us improve by sharing your experience
+            {t('feedback.subtitle')}
           </p>
         </div>
 
@@ -91,12 +93,12 @@ const FeedbackSection = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5 text-primary" />
-                Share Your Feedback
+                {t('feedback.shareExperience')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Rate your experience</label>
+                <label className="text-sm font-medium mb-2 block">{t('feedback.rateExperience')}</label>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button
@@ -117,7 +119,7 @@ const FeedbackSection = () => {
                   Your feedback (English, हिंदी, या कोई भी भाषा)
                 </label>
                 <Textarea
-                  placeholder="Tell us about your experience with the Smart Crop Advisory system..."
+                  placeholder={t('feedback.feedbackPlaceholder')}
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                   rows={4}
@@ -127,7 +129,7 @@ const FeedbackSection = () => {
               <div className="flex gap-2">
                 <Button className="flex-1" disabled={!feedback.trim() || rating === 0}>
                   <Send className="w-4 h-4 mr-2" />
-                  Submit Feedback
+                  {t('feedback.submitFeedback')}
                 </Button>
                 <Button variant="outline" size="icon">
                   <ThumbsUp className="w-4 h-4" />
@@ -144,7 +146,7 @@ const FeedbackSection = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Star className="w-5 h-5 text-warning-orange" />
-                Farmer Stories
+                {t('feedback.farmerStories')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">

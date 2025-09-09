@@ -12,50 +12,53 @@ import {
   CheckCircle
 } from "lucide-react";
 import cropIcon from "@/assets/crop-icon.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CropAdvisory = () => {
+  const { t } = useLanguage();
+  
   const crops = [
     {
-      name: "Wheat",
+      name: t('crops.wheat'),
       icon: <Wheat className="w-5 h-5" />,
-      stage: "Flowering",
-      health: "Good",
-      nextAction: "Apply fertilizer in 3 days",
+      stage: t('crops.flowering'),
+      health: t('crops.good'),
+      nextAction: t('crops.applyFertilizer'),
       priority: "medium"
     },
     {
-      name: "Rice",
+      name: t('crops.rice'),
       icon: <Sprout className="w-5 h-5" />,
-      stage: "Transplanting",
-      health: "Excellent",
-      nextAction: "Maintain water level",
+      stage: t('crops.transplanting'),
+      health: t('crops.excellent'),
+      nextAction: t('crops.maintainWater'),
       priority: "low"
     },
     {
-      name: "Corn",
+      name: t('crops.corn'),
       icon: <Sprout className="w-5 h-5" />,
-      stage: "Vegetative",
-      health: "Needs Attention",
-      nextAction: "Check for pest infestation",
+      stage: t('crops.vegetative'),
+      health: t('crops.needsAttention'),
+      nextAction: t('crops.checkPest'),
       priority: "high"
     }
   ];
 
   const recommendations = [
     {
-      title: "Fertilizer Application",
+      title: t('crops.fertilizerApplication'),
       description: "Apply NPK fertilizer for wheat crops based on soil test results",
-      urgency: "This Week",
+      urgency: t('crops.thisWeek'),
       type: "fertilizer"
     },
     {
-      title: "Pest Control",
+      title: t('crops.pestControl'),
       description: "Monitor corn plants for aphid infestation, use organic pesticides",
       urgency: "Immediate",
       type: "pest"
     },
     {
-      title: "Irrigation Schedule",
+      title: t('crops.irrigationSchedule'),
       description: "Reduce watering frequency due to upcoming rainfall",
       urgency: "Next 2 Days",
       type: "water"
@@ -84,9 +87,9 @@ const CropAdvisory = () => {
     <section className="py-16" id="crops">
       <div className="container px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Crop Advisory System</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('crops.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            AI-powered insights and recommendations for your crops based on growth stage, weather, and soil conditions
+            {t('crops.subtitle')}
           </p>
         </div>
 
@@ -104,11 +107,11 @@ const CropAdvisory = () => {
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Growth Stage</span>
+                    <span className="text-sm text-muted-foreground">{t('crops.growthStage')}</span>
                     <Badge variant="outline">{crop.stage}</Badge>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Health Status</span>
+                    <span className="text-sm text-muted-foreground">{t('crops.healthStatus')}</span>
                     <span className={`text-sm font-medium ${getPriorityColor(crop.priority)}`}>
                       {crop.health}
                     </span>
@@ -116,7 +119,7 @@ const CropAdvisory = () => {
                   <div className="mt-4 p-3 rounded-lg bg-muted/50">
                     <div className="flex items-center gap-2 mb-1">
                       {getPriorityIcon(crop.priority)}
-                      <span className="text-sm font-medium">Next Action</span>
+                      <span className="text-sm font-medium">{t('crops.nextAction')}</span>
                     </div>
                     <p className="text-sm text-muted-foreground">{crop.nextAction}</p>
                   </div>
@@ -132,7 +135,7 @@ const CropAdvisory = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-success-green" />
-                Today's Recommendations
+                {t('crops.recommendations')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -150,7 +153,7 @@ const CropAdvisory = () => {
                     {rec.type === 'pest' && <Bug className="w-4 h-4 text-destructive" />}
                     {rec.type === 'water' && <Sprout className="w-4 h-4 text-sky-blue" />}
                     <Button variant="outline" size="sm">
-                      View Details
+                      {t('crops.viewDetails')}
                     </Button>
                   </div>
                 </div>
@@ -163,33 +166,33 @@ const CropAdvisory = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-primary" />
-                Farming Calendar
+                {t('crops.farmingCalendar')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="p-3 rounded-lg bg-success-green/10 border border-success-green/20">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-success-green">This Week</span>
+                    <span className="font-medium text-success-green">{t('crops.thisWeek')}</span>
                     <CheckCircle className="w-4 h-4 text-success-green" />
                   </div>
-                  <p className="text-sm">Wheat fertilizer application window</p>
+                  <p className="text-sm">{t('crops.wheatFertilizer')}</p>
                 </div>
                 
                 <div className="p-3 rounded-lg bg-warning-orange/10 border border-warning-orange/20">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-warning-orange">Next Week</span>
+                    <span className="font-medium text-warning-orange">{t('crops.nextWeek')}</span>
                     <AlertCircle className="w-4 h-4 text-warning-orange" />
                   </div>
-                  <p className="text-sm">Rice transplanting season begins</p>
+                  <p className="text-sm">{t('crops.riceTransplanting')}</p>
                 </div>
 
                 <div className="p-3 rounded-lg bg-muted/50">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium">Month End</span>
+                    <span className="font-medium">{t('crops.monthEnd')}</span>
                     <Calendar className="w-4 h-4 text-muted-foreground" />
                   </div>
-                  <p className="text-sm">Prepare for corn harvesting season</p>
+                  <p className="text-sm">{t('crops.cornHarvesting')}</p>
                 </div>
               </div>
             </CardContent>
